@@ -1,7 +1,7 @@
 --***********************************************************
 --conectarse a base de datos
 --***********************************************************
-connect remote:localhost/meetup root root;
+connect remote:localhost/demodb root root;
 script sql
 begin;
 

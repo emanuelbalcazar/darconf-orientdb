@@ -1,7 +1,7 @@
 --***********************************************************
 --conectarse a base de datos
 --***********************************************************
-connect remote:localhost/meetup root root;
+connect remote:localhost/demodb root root;
 
 --secuencia
 CREATE SEQUENCE idseq TYPE ORDERED;

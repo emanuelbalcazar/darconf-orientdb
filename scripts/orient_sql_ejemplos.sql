@@ -52,11 +52,10 @@ UPDATE Locations SET Type='albergue' WHERE Name='Madryn'
 -- update con MERGE
 UPDATE Locations MERGE {Type: 'albergue'} WHERE Name='Madryn'
 
--- delete, baia baia hay un vertex por aca...
+-- delete, que es este vertex?
 DELETE VERTEX FROM Locations WHERE Name='Madryn' UNSAFE
 
-
--- que hacen?
+-- likes
 SELECT FROM Profiles WHERE Email LIKE '%.com'
 
 SELECT FROM Profiles WHERE Email.right(3) = 'org'
