@@ -8,55 +8,60 @@ begin;
 --insertando profesores
 -- aplicando    select sequence('idseq').next()
 --
-insert into Profesor set id =sequence('idseq').next(), nombre="Merlin";
-insert into Profesor set id =sequence('idseq').next(), nombre="Vandel";
+insert into Professor set id =sequence('idseq').next(), name="Merlin";
+insert into Professor set id =sequence('idseq').next(), name="Vandel";
+insert into Professor set id =sequence('idseq').next(), name="Mike";
+
 
 --para insertar alumnos nos conviene usar json
-INSERT	INTO Alumno CONTENT {
-        "nombre": "Hans Kruger", 
-        "direccionCasa": {
-            "calle":  "Chucuito 333",
-            "pais": "Venezuela"
-            },
-        "direccionTrabajo": {
-            "calle":  "Derbes 323",
-            "pais": "Croacia"
+INSERT	INTO Student CONTENT {
+        "name": "Hans Kruger", 
+        "address": {
+            "address":  "Chucuito 333",
+            "country": "Venezuela"
             }
     };
 
-INSERT INTO Alumno CONTENT {
-        "nombre": "Helga Vykena", 
-        "direccionCasa": {
-            "calle":  "Karlin 222",
-            "pais": "Tailandia"
-            },
-        "direccionTrabajo": {
-            "calle":  "Precursores 200",
-            "pais": "Finlandia"
+INSERT INTO Student CONTENT {
+        "name": "Helga Vykena", 
+        "address": {
+            "address":  "Karlin 222",
+            "country": "Tailandia"
             }
     };
 
 --insertar curso
-insert into Curso (nombre) values ("Dibujo por computador");
-insert into Curso (nombre) values ("Energías renovables");
-insert into Curso (nombre) values ("Base de datos");
+insert into Course (name) values ("Programación 1");
+insert into Course (name) values ("Energías renovables");
+insert into Course (name) values ("Base de datos");
 
 --crear relaciones entre profesores y cursos
-CREATE EDGE dicta FROM 
-(SELECT FROM Profesor WHERE	nombre = 'Merlin') 
+CREATE EDGE teach FROM 
+(SELECT FROM Professor WHERE name = 'Merlin') 
 TO	
-(SELECT FROM Curso    WHERE	nombre = 'Base de datos');
+(SELECT FROM Course WHERE name = 'Base de datos');
+
+CREATE EDGE teach FROM 
+(SELECT FROM Professor WHERE name = 'Mike') 
+TO	
+(SELECT FROM Course WHERE name = 'Programación 1');
+
+CREATE EDGE teach FROM 
+(SELECT FROM Professor WHERE name = 'Vandel') 
+TO	
+(SELECT FROM Course WHERE name = 'Energías renovables');
 
 --relacionar alumnos y cursos
-CREATE EDGE matriculadoEn FROM 
-(SELECT FROM Alumno WHERE nombre = 'Helga Vykena') 
-TO	
-(SELECT FROM Curso);
 
-CREATE EDGE matriculadoEn FROM 
-(SELECT FROM Alumno WHERE nombre = 'Hans Kruger') 
+CREATE EDGE study FROM 
+(SELECT FROM Student WHERE name = 'Helga Vykena') 
 TO	
-(SELECT FROM Curso where nombre ='Base de datos');
+(SELECT FROM Course);
+
+CREATE EDGE study FROM 
+(SELECT FROM Student WHERE name = 'Hans Kruger') 
+TO	
+(SELECT FROM Course where name ='Base de datos');
 
 commit;
 end

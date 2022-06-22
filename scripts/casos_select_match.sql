@@ -1,17 +1,34 @@
 --usando select
-select nombre, out('dicta') from `Profesor`
-select nombre, out('dicta').in('matriculadoEn') from `Profesor`
-select nombre, out('dicta').in('matriculadoEn') as alumnoMatriculado from `Profesor`
-select nombre, out('dicta').in('matriculadoEn').nombre as alumnoMatriculado from `Profesor`
+
+-- el nombre de todos los profesores que enseñan una materia
+select name, out('teach') from `Professor`
+
+-- el nombre del profesor y de todas las materias que enseña y tiene estudiantes
+select name, out('teach').in('study') from `Professor`
+
+-- el nombre del profesor y los alumnos que estan en sus materias
+select name, out('teach').in('study') as alumno from `Professor`
+
+-- el nombre del profesor y el nombre de los alumnos que estan en sus materias
+select name, out('teach').in('study').name as alumno from `Professor`
 
 --usando match
-match {class:Profesor, as: profesor} return profesor
-match {class:Profesor, as: profesor, where: (nombre='Samuel')} return profesor
-match {class:Profesor, as: profesor, where: (nombre='Merlin')}.out('dicta'){as: cur} return cur
-match {class:Profesor, as: profesor, where: (nombre='Merlin')}.out('dicta').in('matriculadoEn'){as:alu} return alu
+match {class:Professor, as: professor} return professor
+
+match {class:Professor, as: professor, where: (name='Mike')} return professor
+
+match {class:Professor, as: professor, where: (name='Merlin')}.out('teach'){as: course} return course
+
+match {class:Professor, as: professor, where: (name='Merlin')}.out('teach').in('study'){as: student} return student
 
 --ahora agregamos $elements
-match {class:Profesor, as: profesor, where: (nombre='Merlin')}.out('dicta').in('matriculadoEn'){as:alu} return $elements
+match {class:Professor, as: professor, where: (name='Merlin')}.out('teach').in('study'){as: student} return $elements
 
 --ahora agregamos $pathelements
-match {class:Profesor, as: profesor, where: (nombre='Merlin')}.out('dicta').in('matriculadoEn'){as:alu} return $pathelements
+match {class:Professor, as: professor, where: (name='Merlin')}.out('teach').in('study'){as: student} return $pathelements
+
+-- las materias que dicta merlin, los alumnos inscriptos y ademas que otras materias cursa ese alumno
+match {class:Professor, as: professor, where: (name='Merlin')}.out('teach').in('study'){as: student}.out('study') return $pathelements
+
+-- Helga y Hans se conocen?
+match {class:Student, as: student, where: (name='Helga Vykena')}.out('study').in('study'){as: friend, where: (name='Hans Kruger')} return $pathelements

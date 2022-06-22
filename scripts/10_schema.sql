@@ -1,34 +1,33 @@
 --***********************************************************
 --conectarse a base de datos
 --***********************************************************
-connect remote:localhost/demodb root root;
+connect remote:localhost/borrar root root;
 
 --secuencia
 CREATE SEQUENCE idseq TYPE ORDERED;
 
 --clases simples
-create class Direccion;
-create property Direccion.calle  STRING;
-create property Direccion.pais   STRING;
+create class Home;
+create property Home.address  STRING;
+create property Home.country   STRING;
 
 --clases vertex
-create class Profesor extends V;
-create property Profesor.id                  LONG;
-create property Profesor.nombre  STRING;
+create class Professor extends V;
+create property Professor.id    LONG;
+create property Professor.name  STRING;
 
-create class Alumno extends V;
-create property Alumno.nombre              STRING;
-create property Alumno.direccionCasa       embedded Direccion;
-create property Alumno.direccionTrabajo    embedded Direccion;
+create class Student extends V;
+create property Student.name    STRING;
+create property Student.address  embedded Home;
 
-create class Curso extends V;
-create property Curso.nombre     STRING;
+create class Course extends V;
+create property Course.name  STRING;
 
 --clases edge
-create class matriculadoEn extends E;
-create property matriculadoEn.out LINK Alumno;
-create property matriculadoEn.in  LINK Curso;
+create class Study extends E;
+create property Study.out LINK Student;
+create property Study.in  LINK Course;
 
-create class dicta extends E;
-create property dicta.out LINK Profesor;
-create property dicta.in  LINK Curso;
+create class Teach extends E;
+create property Teach.out LINK Professor;
+create property Teach.in  LINK Course;
