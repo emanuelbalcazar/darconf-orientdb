@@ -1,0 +1,25 @@
+{
+  "name": "darconf-orientdb",
+  "version": "1.0.0",
+  "description": "Material para la Darconf 2022",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emanuelbalcazar/darconf-orientdb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emanuelbalcazar/darconf-orientdb/issues"
+  },
+  "homepage": "https://github.com/emanuelbalcazar/darconf-orientdb#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "orientjs": "^3.0.11"
+  }
+}
