@@ -13,13 +13,13 @@ select name, out('teach').in('study') as alumno from `Professor`
 select name, out('teach').in('study').name as alumno from `Professor`
 
 --usando match
-match {class:Professor, as: professor} return professor
+match {class:Professor, as: professor} return $elements
 
-match {class:Professor, as: professor, where: (name='Mike')} return professor
+match {class:Professor, as: professor, where: (name='Mike')} return $elements
 
-match {class:Professor, as: professor, where: (name='Merlin')}.out('teach'){as: course} return course
+match {class:Professor, as: professor, where: (name='Merlin')}.out('teach'){as: course} return $elements
 
-match {class:Professor, as: professor, where: (name='Merlin')}.out('teach').in('study'){as: student} return student
+match {class:Professor, as: professor, where: (name='Merlin')}.out('teach').in('study'){as: student} return $elements
 
 --ahora agregamos $elements
 match {class:Professor, as: professor, where: (name='Merlin')}.out('teach').in('study'){as: student} return $elements
